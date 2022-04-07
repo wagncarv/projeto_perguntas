@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import './questionario.dart';
 import './resultado.dart';
@@ -6,29 +8,35 @@ void main() => runApp(PerguntaApp());
 
 class _PerguntaAppState extends State<PerguntaApp> {
   var _perguntaSelecionada = 0;
+  var _pontuacaoTotal = 0;
 
   final _perguntas = const [
     {
       'texto': 'Qual é a sua cor favorita?',
       'respostas': [
-        {'texto': 'Branco', 'nota': 10},
-        {'texto': 'Preto', 'nota': 5},
-        {'texto': 'Verde', 'nota': 3},
-        {'texto': 'Vermelho', 'nota': 1}
+        {'texto': 'Branco', 'pontuacao': 10},
+        {'texto': 'Preto', 'pontuacao': 5},
+        {'texto': 'Verde', 'pontuacao': 3},
+        {'texto': 'Vermelho', 'pontuacao': 1}
       ]
     },
     {
       'texto': 'Qual é o seu animal favorito?',
       'respostas': [
-        {'texto': 'Cobra', 'nota': 10},
-        {'texto': 'Coelho', 'nota': 5},
-        {'texto': 'Elefante', 'nota': 3},
-        {'texto': 'Leão', 'nota': 1},
+        {'texto': 'Cobra', 'pontuacao': 10},
+        {'texto': 'Coelho', 'pontuacao': 5},
+        {'texto': 'Elefante', 'pontuacao': 3},
+        {'texto': 'Leão', 'pontuacao': 1},
       ]
     },
     {
       'texto': 'Qual é o seu instrutor favorito?',
-      'respostas': ['Gustavo', 'Loiane', 'Micheli', 'Rafael']
+      'respostas': [
+        {'texto': 'Gustavo', 'pontuacao': 10},
+        {'texto': 'Loiane', 'pontuacao': 5},
+        {'texto': 'Micheli', 'pontuacao': 3},
+        {'texto': 'Rafael', 'pontuacao': 1}
+      ]
     },
   ];
 
@@ -36,12 +44,15 @@ class _PerguntaAppState extends State<PerguntaApp> {
     return _perguntaSelecionada < _perguntas.length;
   }
 
-  void _responder() {
+  void _responder(int pontuacao) {
     if (temPerguntaSelecionada) {
       setState(() {
         _perguntaSelecionada++;
+        _pontuacaoTotal += pontuacao;
       });
     }
+
+    print("Pontuação total: ${_pontuacaoTotal}");
   }
 
   @override
