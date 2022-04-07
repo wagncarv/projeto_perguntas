@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import './questao.dart';
-import './resposta.dart';
+import './questionario.dart';
 import './resultado.dart';
 
 void main() => runApp(PerguntaApp());
@@ -11,17 +10,31 @@ class _PerguntaAppState extends State<PerguntaApp> {
   final _perguntas = const [
     {
       'texto': 'Qual é a sua cor favorita?',
-      'respostas': ['Branco', 'Preto', 'Verde', 'Vermelho']
+      'respostas': [
+        {'texto': 'Branco', 'nota': 10},
+        {'texto': 'Preto', 'nota': 5},
+        {'texto': 'Verde', 'nota': 3},
+        {'texto': 'Vermelho', 'nota': 1}
+      ]
     },
     {
       'texto': 'Qual é o seu animal favorito?',
-      'respostas': ['Cobra', 'Coelho', 'Elefante', 'Leão']
+      'respostas': [
+        {'texto': 'Cobra', 'nota': 10},
+        {'texto': 'Coelho', 'nota': 5},
+        {'texto': 'Elefante', 'nota': 3},
+        {'texto': 'Leão', 'nota': 1},
+      ]
     },
     {
       'texto': 'Qual é o seu instrutor favorito?',
       'respostas': ['Gustavo', 'Loiane', 'Micheli', 'Rafael']
     },
   ];
+
+  bool get temPerguntaSelecionada {
+    return _perguntaSelecionada < _perguntas.length;
+  }
 
   void _responder() {
     if (temPerguntaSelecionada) {
@@ -31,27 +44,18 @@ class _PerguntaAppState extends State<PerguntaApp> {
     }
   }
 
-  bool get temPerguntaSelecionada {
-    return _perguntaSelecionada < _perguntas.length;
-  }
-
   @override
   Widget build(BuildContext context) {
-    final respostas = temPerguntaSelecionada
-        ? _perguntas[_perguntaSelecionada].cast()['respostas']
-        : [];
-
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: Text('Perguntas'),
         ),
         body: temPerguntaSelecionada
-            ? Column(
-                children: [
-                  Questao(_perguntas[_perguntaSelecionada]['texto'].toString()),
-                  ...respostas.map((t) => Resposta(t, _responder)).toList(),
-                ],
+            ? Questionario(
+                perguntas: _perguntas,
+                perguntaSelecionada: _perguntaSelecionada,
+                quandoResponder: _responder,
               )
             : Resultado(),
       ),

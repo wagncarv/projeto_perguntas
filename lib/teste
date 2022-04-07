@@ -1,0 +1,1 @@
+.map((resp) => Resposta(resp['texto'].toString(), quandoResponder)).toList(),
