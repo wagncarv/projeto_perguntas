@@ -1,6 +1,0 @@
-.map((resp) => Resposta(resp['texto'].toString(), quandoResponder)).toList(),
-
-return Resposta(
-    resp['texto'].toString(),
-    () => quandoResponder(int.parse(resp['pontuacao'].toString())),
-  );
